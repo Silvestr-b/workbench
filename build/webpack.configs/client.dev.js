@@ -7,11 +7,11 @@ const rootDir = process.cwd();
 
 module.exports = {
    entry: {
-      client: path.join(rootDir, '../../src/main/index.client.ts')
+      client: path.join(rootDir, 'src/main/index.client.ts')
    },
    output: {
       filename: 'client.js',
-      path: path.join(rootDir, '../../dist/client'),
+      path: path.join(rootDir, 'dist/client'),
       publicPath: '/dist/client'
    },
    resolve: {
@@ -43,28 +43,29 @@ module.exports = {
             test: /\.js(x?)$/,
             loader: 'babel-loader',
             options: {
-               // plugins: [/*'jsx-bemclasses'*/, 'syntax-dynamic-import'],
-               // presets: [/*'es2015',*/ 'react']
+               plugins: ['jsx-bemclasses', 'syntax-dynamic-import'],
+               presets: ['react']
             }
          },
          {
             test: /\.ts(x?)$/,
             use: [
                {
-                  loader: 'babel-loader',
-                  options: {
-                     // plugins: [/*'jsx-bemclasses'*/, 'syntax-dynamic-import'],
-                     // presets: [/*'es2015',*/ 'react']
-                  }
+                  loader: "awesome-typescript-loader"
                },
                {
-                  loader: "awesome-typescript-loader"
+                  loader: 'babel-loader',
+                  options: {
+                     plugins: ['jsx-bemclasses', 'syntax-dynamic-import'],
+                     presets: ['react']
+                  }
                }
             ]
 
          }
       ]
    },
+   watch: true,
    plugins: [
       new ExtractTextPlugin('styles.css'),
    ],
